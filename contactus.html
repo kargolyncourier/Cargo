@@ -25,18 +25,39 @@ body{
   color:#222;
 }
 
-/* NAV */
+/* NAVBAR */
 nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:15px 8%;
   background:#000;
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
 
 nav h1{color:var(--yellow);font-size:22px;}
-nav ul{display:flex;gap:25px;list-style:none;}
-nav a{color:#fff;text-decoration:none;}
+
+nav ul{
+  display:flex;
+  gap:25px;
+  list-style:none;
+}
+
+nav a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:500;
+}
+
+/* HAMBURGER */
+.menu-btn{
+  display:none;
+  font-size:26px;
+  color:#fff;
+  cursor:pointer;
+}
 
 /* HERO */
 .hero{
@@ -117,16 +138,43 @@ footer h4{color:#fff;margin-bottom:10px;}
 
 /* MOBILE */
 @media(max-width:900px){
-  .contact{grid-template-columns:1fr;}
+  .menu-btn{display:block;}
+
+  nav ul{
+    position:absolute;
+    top:70px;
+    left:0;
+    width:100%;
+    background:#000;
+    flex-direction:column;
+    display:none;
+  }
+
+  nav ul.show{
+    display:flex;
+  }
+
+  nav ul li{
+    text-align:center;
+    padding:15px 0;
+  }
+
+  .contact{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav>
   <h1>KARGOLYN</h1>
-  <ul>
+
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <ul id="navLinks">
     <li><a href="indexx.html">Home</a></li>
     <li><a href="services.html">Services</a></li>
     <li><a href="tracking.html">Tracking</a></li>
@@ -135,6 +183,7 @@ footer h4{color:#fff;margin-bottom:10px;}
   </ul>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
   <h2>Contact Us</h2>
 </div>
@@ -182,6 +231,10 @@ footer h4{color:#fff;margin-bottom:10px;}
 </footer>
 
 <script>
+function toggleMenu(){
+  document.getElementById("navLinks").classList.toggle("show");
+}
+
 const form = document.getElementById("contactForm");
 const status = document.getElementById("status");
 
@@ -209,3 +262,4 @@ form.addEventListener("submit", async (e) => {
 
 </body>
 </html>
+
