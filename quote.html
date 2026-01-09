@@ -54,11 +54,19 @@ nav a{
   font-weight:500;
 }
 
+/* HAMBURGER */
+.menu-btn{
+  display:none;
+  font-size:26px;
+  color:#fff;
+  cursor:pointer;
+}
+
 /* HERO */
 .hero{
   height:40vh;
   background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
-  url('https://images.unsplash.com/photo-1593642532973-d31b6557fa68') center/cover no-repeat;
+  url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d') center/cover no-repeat;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -136,9 +144,28 @@ footer{
 
 footer h4{color:#fff;margin-bottom:10px;}
 
-/* MOBILE */
+/* MOBILE FIX */
 @media(max-width:900px){
-  nav ul{display:none;}
+  .menu-btn{display:block;}
+
+  nav ul{
+    position:absolute;
+    top:70px;
+    left:0;
+    width:100%;
+    background:#000;
+    flex-direction:column;
+    display:none;
+  }
+
+  nav ul.show{
+    display:flex;
+  }
+
+  nav ul li{
+    text-align:center;
+    padding:15px 0;
+  }
 }
 </style>
 </head>
@@ -148,7 +175,10 @@ footer h4{color:#fff;margin-bottom:10px;}
 <!-- NAVBAR -->
 <nav>
   <h1>KARGOLYN</h1>
-  <ul>
+
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <ul id="navLinks">
     <li><a href="indexx.html">Home</a></li>
     <li><a href="services.html">Services</a></li>
     <li><a href="tracking.html">Tracking</a></li>
@@ -168,7 +198,6 @@ footer h4{color:#fff;margin-bottom:10px;}
 
   <form id="quoteForm" action="https://formspree.io/f/mykkggyb" method="POST">
 
-    <!-- SENDER -->
     <div class="section-title">Sender (Client) Details</div>
 
     <div class="form-group">
@@ -182,16 +211,10 @@ footer h4{color:#fff;margin-bottom:10px;}
     </div>
 
     <div class="form-group">
-      <label>Sender Email</label>
-      <input type="email" name="sender_email">
-    </div>
-
-    <div class="form-group">
       <label>Pickup Area</label>
       <input type="text" name="pickup_location" required>
     </div>
 
-    <!-- RECEIVER -->
     <div class="section-title">Receiver Details</div>
 
     <div class="form-group">
@@ -209,27 +232,6 @@ footer h4{color:#fff;margin-bottom:10px;}
       <input type="text" name="dropoff_location" required>
     </div>
 
-    <!-- DESTINATION -->
-    <div class="section-title">Destination</div>
-
-    <div class="form-group">
-      <label>Country</label>
-      <select name="country" id="country" required>
-        <option value="">Select Country</option>
-        <option>Kenya</option>
-        <option>Uganda</option>
-        <option>Tanzania</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>County / City</label>
-      <select name="county" id="county" required>
-        <option value="">Select County</option>
-      </select>
-    </div>
-
-    <!-- PARCEL -->
     <div class="section-title">Parcel Details</div>
 
     <div class="form-group">
@@ -248,23 +250,9 @@ footer h4{color:#fff;margin-bottom:10px;}
 </footer>
 
 <script>
-const countiesData={
-  Kenya:["Nairobi","Mombasa","Kisumu","Nakuru","Eldoret"],
-  Uganda:["Kampala","Jinja","Gulu","Entebbe"],
-  Tanzania:["Dar es Salaam","Arusha","Mwanza","Dodoma"]
-};
-
-const country=document.getElementById("country");
-const county=document.getElementById("county");
-
-country.addEventListener("change",()=>{
-  county.innerHTML="<option value=''>Select County</option>";
-  countiesData[country.value]?.forEach(c=>{
-    const o=document.createElement("option");
-    o.value=o.textContent=c;
-    county.appendChild(o);
-  });
-});
+function toggleMenu(){
+  document.getElementById("navLinks").classList.toggle("show");
+}
 
 const form=document.getElementById("quoteForm");
 const status=document.getElementById("status");
@@ -285,7 +273,7 @@ form.addEventListener("submit",async(e)=>{
     form.reset();
   }else{
     status.style.color="red";
-    status.textContent="❌ Failed to submit. Please try again.";
+    status.textContent="❌ Submission failed. Try again.";
   }
 });
 </script>
