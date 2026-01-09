@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Shipment | Kargolyn Couriers</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --yellow:#ffcc00;
+  --dark:#111;
+  --gray:#f5f5f5;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Montserrat',sans-serif;
+}
+
+body{
+  background:#fff;
+  color:#222;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 8%;
+  background:#000;
+}
+
+nav h1{
+  color:var(--yellow);
+  font-size:22px;
+}
+
+nav ul{
+  display:flex;
+  gap:25px;
+  list-style:none;
+}
+
+nav a{
+  color:#fff;
+  text-decoration:none;
+}
+
+/* HERO */
+.hero{
+  height:45vh;
+  background:
+    linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+    url("https://picsum.photos/1920/900") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  padding:0 8%;
+  color:#fff;
+}
+
+.hero h2{
+  font-size:42px;
+}
+
+/* TRACK SECTION */
+.track-section{
+  padding:80px 8%;
+  background:var(--gray);
+  text-align:center;
+}
+
+.track-box{
+  max-width:600px;
+  margin:auto;
+  background:#fff;
+  padding:40px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.track-box h3{
+  margin-bottom:15px;
+}
+
+.track-box input{
+  width:100%;
+  padding:14px;
+  margin:20px 0;
+  border:1px solid #ccc;
+  font-size:16px;
+}
+
+.track-box button{
+  padding:14px 30px;
+  border:none;
+  background:var(--yellow);
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* RESULT */
+.result{
+  display:none;
+  margin-top:30px;
+  text-align:left;
+  border-top:1px solid #ddd;
+  padding-top:20px;
+}
+
+.status{
+  padding:10px;
+  background:#000;
+  color:#fff;
+  display:inline-block;
+  margin-bottom:15px;
+}
+
+/* INFO GRID */
+.info{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  color:#aaa;
+  padding:40px 8%;
+  margin-top:80px;
+}
+
+footer h4{
+  color:#fff;
+  margin-bottom:10px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h1>KARGOLYN</h1>
+  <ul>
+    <li><a href="indexx.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="tracking.html">Tracking</a></li>
+    <li><a href="contactus.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <h2>Track Your Shipment</h2>
+</div>
+
+<section class="track-section">
+  <div class="track-box">
+    <h3>Enter Tracking Number</h3>
+    <p>Track your parcel in real-time</p>
+
+    <input type="text" id="trackingNumber" placeholder="e.g. KRG-102938">
+    <button onclick="track()">Track Shipment</button>
+
+    <div class="result" id="result">
+      <div class="status">In Transit</div>
+
+      <div class="info">
+        <div><strong>Tracking No:</strong> <span id="tno"></span></div>
+        <div><strong>Sender:</strong> Nairobi</div>
+        <div><strong>Destination:</strong> Mombasa</div>
+        <div><strong>Last Update:</strong> Today 10:30 AM</div>
+        <div><strong>Courier:</strong> Kargolyn</div>
+        <div><strong>ETA:</strong> Tomorrow</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <h4>Kargolyn Couriers</h4>
+  <p>Secure • Reliable • Nationwide</p>
+</footer>
+
+<script>
+function track(){
+  const input = document.getElementById("trackingNumber").value.trim();
+  const result = document.getElementById("result");
+  const tno = document.getElementById("tno");
+
+  if(input === ""){
+    alert("Please enter a tracking number");
+    return;
+  }
+
+  // Display the result on page
+  tno.textContent = input;
+  result.style.display = "block";
+
+  // Send tracking number to WhatsApp
+  const companyNumber = "+254113226979";
+  const message = `Tracking Number: ${input}`;
+  const whatsappURL = `https://api.whatsapp.com/send?phone=${companyNumber}&text=${encodeURIComponent(message)}`;
+  
+  // Open WhatsApp in new tab
+  window.open(whatsappURL, "_blank");
+}
+</script>
+
+</body>
+</html>
