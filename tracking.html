@@ -26,13 +26,15 @@ body{
   color:#222;
 }
 
-/* NAV */
+/* ================= NAVBAR ================= */
 nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:15px 8%;
   background:#000;
+  position:relative;
+  z-index:10;
 }
 
 nav h1{
@@ -51,7 +53,43 @@ nav a{
   text-decoration:none;
 }
 
-/* HERO */
+/* Hamburger */
+.menu-btn{
+  display:none;
+  font-size:28px;
+  cursor:pointer;
+  color:#fff;
+}
+
+/* ================= SIDE NAV ================= */
+.side-nav{
+  position:fixed;
+  top:0;
+  left:-260px;
+  width:260px;
+  height:100%;
+  background:#000;
+  padding:30px 25px;
+  transition:.3s;
+  z-index:999;
+}
+
+.side-nav.active{left:0;}
+
+.side-nav h2{
+  color:var(--yellow);
+  margin-bottom:30px;
+}
+
+.side-nav a{
+  display:block;
+  color:#fff;
+  text-decoration:none;
+  margin:18px 0;
+  font-size:18px;
+}
+
+/* ================= HERO ================= */
 .hero{
   height:45vh;
   background:
@@ -67,7 +105,7 @@ nav a{
   font-size:42px;
 }
 
-/* TRACK SECTION */
+/* ================= TRACK SECTION ================= */
 .track-section{
   padding:80px 8%;
   background:var(--gray);
@@ -138,13 +176,31 @@ footer h4{
   color:#fff;
   margin-bottom:10px;
 }
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  nav ul{display:none;}
+  .menu-btn{display:block;}
+  .hero h2{font-size:32px;}
+}
 </style>
 </head>
 
 <body>
 
+<!-- SIDE NAV -->
+<div class="side-nav" id="sideNav">
+  <h2>KARGOLYN</h2>
+  <a href="indexx.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="tracking.html">Tracking</a>
+  <a href="contactus.html">Contact</a>
+</div>
+
+<!-- NAVBAR -->
 <nav>
   <h1>KARGOLYN</h1>
+  <div class="menu-btn" onclick="toggleNav()">☰</div>
   <ul>
     <li><a href="indexx.html">Home</a></li>
     <li><a href="services.html">Services</a></li>
@@ -177,7 +233,6 @@ footer h4{
         <div><strong>ETA:</strong> Tomorrow</div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -187,6 +242,10 @@ footer h4{
 </footer>
 
 <script>
+function toggleNav(){
+  document.getElementById("sideNav").classList.toggle("active");
+}
+
 function track(){
   const input = document.getElementById("trackingNumber").value.trim();
   const result = document.getElementById("result");
@@ -197,19 +256,17 @@ function track(){
     return;
   }
 
-  // Display the result on page
   tno.textContent = input;
   result.style.display = "block";
 
-  // Send tracking number to WhatsApp
   const companyNumber = "+254113226979";
   const message = `Tracking Number: ${input}`;
   const whatsappURL = `https://api.whatsapp.com/send?phone=${companyNumber}&text=${encodeURIComponent(message)}`;
-  
-  // Open WhatsApp in new tab
+
   window.open(whatsappURL, "_blank");
 }
 </script>
 
 </body>
 </html>
+
