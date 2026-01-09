@@ -249,8 +249,7 @@ footer h4{color:#fff; margin-bottom:15px}
   <div><h3>Fast</h3><p data-key="delivery">Delivery</p></div>
 </div>
 
-<!-- CONTENT CONTINUES (unchanged) -->
-
+<!-- FOOTER -->
 <footer>
   <div>
     <h4>Kargolyn Couriers</h4>
@@ -264,9 +263,99 @@ footer h4{color:#fff; margin-bottom:15px}
 </footer>
 
 <script>
+// ================= SIDE NAV TOGGLE =================
 function toggleNav(){
   document.getElementById("sideNav").classList.toggle("active");
 }
+
+// ================= LANGUAGE TRANSLATION =================
+const translations = {
+  en: {
+    home: "Home",
+    services: "Services",
+    tracking: "Tracking",
+    about: "About",
+    contact: "Contact",
+    heroTitle: "Delivering Trust, Security & Speed Across Kenya",
+    heroText: "Kargolyn Couriers provides reliable, secure and professional courier services nationwide.",
+    getQuote: "Get a Quote",
+    support: "Customer Support",
+    secure: "Secure Handling",
+    coverage: "Coverage",
+    delivery: "Delivery",
+    footerText: "Secure • Reliable • Nationwide"
+  },
+  sw: {
+    home: "Nyumbani",
+    services: "Huduma",
+    tracking: "Ufuatiliaji",
+    about: "Kuhusu",
+    contact: "Wasiliana",
+    heroTitle: "Kutoa Uaminifu, Usalama & Kasi Kote Kenya",
+    heroText: "Kargolyn Couriers inatoa huduma za kuaminika, salama na za kitaalamu nchini kote.",
+    getQuote: "Pata Nukuu",
+    support: "Huduma kwa Wateja",
+    secure: "Usafirishaji Salama",
+    coverage: "Mnamo Nchi Kote",
+    delivery: "Utoaji Haraka",
+    footerText: "Salama • Inayoaminika • Nchi Kote"
+  },
+  fr: {
+    home: "Accueil",
+    services: "Services",
+    tracking: "Suivi",
+    about: "À propos",
+    contact: "Contact",
+    heroTitle: "Livraison de Confiance, Sécurité et Rapidité au Kenya",
+    heroText: "Kargolyn Couriers fournit des services de messagerie fiables, sécurisés et professionnels à l'échelle nationale.",
+    getQuote: "Obtenir un Devis",
+    support: "Support Client",
+    secure: "Gestion Sécurisée",
+    coverage: "Couverture",
+    delivery: "Livraison",
+    footerText: "Sécurisé • Fiable • À l'échelle nationale"
+  },
+  es: {
+    home: "Inicio",
+    services: "Servicios",
+    tracking: "Seguimiento",
+    about: "Acerca de",
+    contact: "Contacto",
+    heroTitle: "Entrega de Confianza, Seguridad y Velocidad en Kenia",
+    heroText: "Kargolyn Couriers proporciona servicios de mensajería confiables, seguros y profesionales a nivel nacional.",
+    getQuote: "Obtener Cotización",
+    support: "Atención al Cliente",
+    secure: "Manejo Seguro",
+    coverage: "Cobertura",
+    delivery: "Entrega",
+    footerText: "Seguro • Fiable • A Nivel Nacional"
+  }
+};
+
+function translatePage(lang){
+  document.querySelectorAll("[data-key]").forEach(el=>{
+    const key = el.getAttribute("data-key");
+    if(translations[lang][key]){
+      el.textContent = translations[lang][key];
+    }
+  });
+}
+
+// sync language dropdowns
+const languageSelect = document.getElementById("language");
+const languageSide = document.getElementById("languageSide");
+
+[languageSelect, languageSide].forEach(sel=>{
+  sel.addEventListener("change", e=>{
+    const lang = e.target.value;
+    translatePage(lang);
+    languageSelect.value = lang;
+    languageSide.value = lang;
+  });
+});
+
+// initialize default language
+translatePage(languageSelect.value);
 </script>
 
 </body>
